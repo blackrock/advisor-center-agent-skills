@@ -1,0 +1,14 @@
+{
+    "name": "blackrock-advisor-center-plugin",
+    "version": "0.1.0",
+    "description": "BlackRock Advisor Center 360° skills for AC360 capability routing, guided benchmark selection, guided portfolio building, portfolio observations and opportunities, wealth projections, and portfolio review using Advisor Center MCP tools.",
+    "author": {
+        "name": "BlackRock Advisor Center"
+    },
+    "keywords": [
+        "advisor-center",
+        "advisor-center-360",
+        "portfolio-analysis",
+        "wealth-management"
+    ]
+}
