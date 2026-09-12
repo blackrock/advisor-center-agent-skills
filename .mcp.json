@@ -1,0 +1,8 @@
+{
+    "mcpServers": {
+        "advisor-center-mcp": {
+            "type": "http",
+            "url": "https://ac360-mcp.blackrock.com/mcp"
+        }
+    }
+}
