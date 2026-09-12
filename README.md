@@ -1,38 +1,41 @@
-# Open Source Template
+# BlackRock Advisor Center Skills
 
-Description of the project.
+Advisor Center Skills contains skill files for Advisor Center 360° MCP workflows. The skills help AI environments organize returned portfolio data, analytics, links, and routes for advisor-facing review.
 
-## Table of Contents
+## Included skills
 
-- [Open Source Template](#open-source-template)
-  - [Table of Contents](#table-of-contents)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Contributing](#contributing)
-  - [License](#license)
-  - [Credits](#credits)
-  - [Contact](#contact)
+| Skill | Purpose |
+|---|---|
+| `ac360-capability-router` | Routes web-only or unsupported requests to the right Advisor Center 360° path. |
+| `guided-benchmark-selection` | Benchmark selection across BlackRock models, indices, and saved portfolios. |
+| `guided-portfolio-builder` | Portfolio creation, import, clone, variation, and write confirmation flows. |
+| `portfolio-observations-and-opportunities` | Opportunity checks, fund-health detail, Funds to Explore, and approved drilldowns. |
+| `wealth-projections` | Modeled performance, projected wealth, methodology, fees, horizons, and unsupported configurations. |
+| `portfolio-review` | First-pass portfolio review: snapshot, scenarios, opportunities, fund health, Funds to Explore, links, and follow-ups. |
 
-## Installation
+Each skill folder contains a `SKILL.md` file plus rendering and design-token references.
 
-Instructions for installing and configuring the project.
+## Rendering posture
 
-## Usage
+- Use rich inline cards, charts, and components first.
+- Use markdown tables only when rich cards or charts are unavailable.
+- Render opportunities as cards, not primary markdown tables.
+- Render fund health as card grids with a Funds to Explore area on every holding.
+- Put Advisor Center, comparison, methodology, fund, product, and route links near the block they support.
+- Keep output concise, data-grounded, and advisor-facing.
 
-Examples and instructions for using the project.
+## Requirements
 
-## Contributing
+- Access to Advisor Center 360°
+- Access to the Advisor Center MCP server
+- An AI environment that can load skill markdown or plugin packages
 
-Guidelines for contributing to the project. link to CONTRIBUTING.md and CODE_OF_CONDUCT.md
+## Scope and review
 
-## License
+This repository contains the Advisor Center skill layer. Output quality and presentation depend on the underlying MCP data and the host AI environment. Users should review generated outputs before use.
 
-The license for the project. Lint to the LICENSE file in the root
+## License and notices
 
-## Credits
+Licensed under the Apache License, Version 2.0. See LICENSE.
 
-Acknowledgements for any contributors, libraries, or resources.
-
-## Contact
-
-Contact information for questions or feedback.
+See NOTICE for BlackRock trademark, limitation-of-liability, and no-affiliation terms.
