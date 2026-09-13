@@ -20,6 +20,8 @@ This indicates that you accept and agree to the DCO. You may include this line m
 git commit -s -m "Your commit message"
 ```
 
+**For VS Code users:** This repository includes workspace settings (`.vscode/settings.json`) that automatically enable sign-off for all commits. No additional configuration needed!
+
 ## Contributions without a Signed DCO
 
 Contributions without a properly signed DCO cannot be accepted into the project. If you submit a contribution without a signed DCO, we will ask you to sign it before we can accept your contribution.
