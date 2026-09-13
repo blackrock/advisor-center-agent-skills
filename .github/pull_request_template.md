@@ -1,4 +1,4 @@
-Please annotate your PR title to describe what the PR does, then give a brief bulleted description of your PR below. PR titles should begin with [BUGFIX], [FEATURE], [DOCS], [MAINTENANCE], or [CONTRIB]. If a new feature introduces breaking changes for the <project name> or configuration files, please also add [BREAKING]. 
+Please annotate your PR title to describe what the PR does, then give a brief bulleted description of your PR below. PR titles should begin with [BUGFIX], [FEATURE], [DOCS], [MAINTENANCE], or [CONTRIB]. If a new feature introduces breaking changes for the BlackRock Advisor Center Skills or configuration files, please also add [BREAKING]. 
 
 ## Description
 

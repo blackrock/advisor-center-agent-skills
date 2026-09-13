@@ -1,6 +1,6 @@
-# Contributing to [project name]
+# Contributing to [BlackRock Advisor Center Skills]
 
-Thank you for your interest in contributing to [project name]! We welcome all contributions, big or small. To ensure that contributions are properly tracked and attributed, we require that all contributors sign off on their work using the Developer Certificate of Origin (DCO).
+Thank you for your interest in contributing to [BlackRock Advisor Center Skills]! We welcome all contributions, big or small. To ensure that contributions are properly tracked and attributed, we require that all contributors sign off on their work using the Developer Certificate of Origin (DCO).
 
 ## What is the Developer Certificate of Origin?
 
