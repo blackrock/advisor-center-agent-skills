@@ -2,13 +2,6 @@
 
 GitHub Issues: https://github.com/blackrock/advisor-center-agent-skills/issues
 
-# Service Level Agreement
-
-BlackRock Advisor Center Skills - Open Source Software Project - Service Level Agreement
-
-This SLA is subject to change, and the project maintainers reserve the right to update it as needed.
-The project is provided "as is," without warranties or guarantees.
-
 1. Response Time:
 
 Project maintainers will make efforts to respond to issues and inquiries within 20 business days.
