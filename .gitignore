@@ -1,3 +1,40 @@
+# macOS
 .DS_Store
-.venv/
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Editors
+.idea/
+*.swp
+*.swo
+*~
+
+# VS Code: keep the shared workspace settings, ignore personal state
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Claude Code local overrides (personal, not shared)
+.claude/settings.local.json
+
+# Packaged plugin bundles
 *.plugin
+
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+
+# Python virtual environments
+.venv/
+
+# Node tooling, if any is added later
+node_modules/
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*

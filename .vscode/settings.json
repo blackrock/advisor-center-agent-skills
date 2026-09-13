@@ -1,0 +1,9 @@
+{
+  // Project-level VS Code settings (committed to ensure consistent contributor experience)
+  // DCO sign-off is REQUIRED for all commits in this project
+  // This setting automatically adds "Signed-off-by" to commit messages
+  // See CONTRIBUTING.md for more information about DCO requirements
+  "git.alwaysSignOff": true,
+  // Clarification: DCO sign-off is different from GPG commit signing
+  "git.enableCommitSigning": false
+}

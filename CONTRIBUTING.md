@@ -1,6 +1,6 @@
-# Contributing to [project name]
+# Contributing to [BlackRock Advisor Center Skills]
 
-Thank you for your interest in contributing to [project name]! We welcome all contributions, big or small. To ensure that contributions are properly tracked and attributed, we require that all contributors sign off on their work using the Developer Certificate of Origin (DCO).
+Thank you for your interest in contributing to [BlackRock Advisor Center Skills]! We welcome all contributions, big or small. To ensure that contributions are properly tracked and attributed, we require that all contributors sign off on their work using the Developer Certificate of Origin (DCO).
 
 ## What is the Developer Certificate of Origin?
 
@@ -19,6 +19,8 @@ This indicates that you accept and agree to the DCO. You may include this line m
 ```bash
 git commit -s -m "Your commit message"
 ```
+
+**For VS Code users:** This repository includes workspace settings (`.vscode/settings.json`) that automatically enable sign-off for all commits. No additional configuration needed!
 
 ## Contributions without a Signed DCO
 

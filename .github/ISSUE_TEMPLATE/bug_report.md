@@ -22,7 +22,9 @@ A clear and concise description of what you expected to happen.
 
 **Environment (please complete the following information):**
  - Operating System: [e.g. Linux, MacOS, Windows]
- - Great Expectations Version: [e.g. 0.13.2]
+ - AI environment / host: [e.g. Claude Code, Claude Desktop]
+ - Skill: [e.g. portfolio-review]
+ - Plugin version: [e.g. 0.1.0]
 
 **Additional context**
 Add any other context about the problem here.
