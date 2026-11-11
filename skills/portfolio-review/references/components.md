@@ -24,8 +24,8 @@ Only when both come up empty do markdown tables apply; carry that answer through
 response.
 
 An available tool is used. Unsure it fits this block? Call it — a render that fails is
-what licenses the fallback. Never choose markdown tables for speed, familiarity, or
-because the fallback example is easier to copy. Two rungs are excluded because they have
+what licenses the fallback. Never choose markdown tables for speed, familiarity, where
+the block sits, or because the fallback example is easier to copy. Two rungs are excluded because they have
 failed: **raw HTML or SVG in the chat body**, escaped and shown as tags, and
 **box-drawing or bar art in a code block**, which wraps.
 
@@ -70,7 +70,7 @@ A container declares `Slots`. Every slot it does not declare is absent from the 
 | Card | `1px` card border, radius `8px`, `12px` padding, surface fill; three across unless the block names another column count. A slot's own line is primary ink, its first slot at weight 500; a line supporting a slot is `13px` secondary ink | — | whatever the block declares, in the order it declares them | one row of a table |
 | Status card | a Card tinted by `fill`: the role's card wash across the whole card, its subtle border at `1px`. The dot and words still appear in the header, never replaced by the wash. The wash is fixed in either host mode, so every slot inside takes the fixed-fill ink of `design-tokens.md` § Ink | `fill` ← status role | whatever the block declares | one table row, the status words first |
 | Side-by-side card | card `220px` fixed on the left, prose filling the rest, `24px` apart, both top-aligned; card `1px` card border, radius `8px`, `16px` padding, surface fill | — | `card.*` · `prose` · `action` · `source link` | the card as a table, then the prose beneath it |
-| Status list | one row per state in the order the block fixes; each row a status dot, its short label, the count, then the member items joined by ` · `; rows parted by a `1px` card-border rule; no header row | — | `row` · `count` · `members` | a table, the status words first |
+| Status list | one row per state in the order the block fixes; each row a status dot in the role's `Icon` colour, its short label in the role's `Text` colour, the count, then the member items joined by ` · `; rows parted by a `1px` card-border rule; no header row | — | `row` · `count` · `members` | a table, the status words first |
 | Inset block | a block inside a card, radius `4px`, `8px` padding, setting one figure or one list apart from the card's other rows. Inside a tinted card it takes that role's subtle background; otherwise the surface fill. Label `13px` secondary ink, its lines beneath never repeating it | — | `label` · the lines beneath | a further line in the card's row, its label in bold |
 | Footnotes | Block label ← `title`, `8px` above the first line; one Footnote line per entry in arrival order, `4px` apart, an entry carrying `marker` starting with its Footnote marker | — | `title` · `entries` | `title` in bold, then one line per entry, its marker a Unicode superscript digit (¹ ² ³ …) |
 | Table | header row weight 500 with a `1px` card-border rule beneath; rows parted by a `1px` divider; `8px` cell padding; no fills | — | column heads · rows | as is |
@@ -120,10 +120,7 @@ block needing one either names a parameter instead, or the rule is added here.
 | `categorical-fill` | a categorical slot whatever the sign of the values. Never a change-direction colour, a status role, or the accent |
 | `one-marker` | one marker per legend entry — the swatch is the marker |
 | `label-only(<slot>)` | the returned label and nothing after it: no explanation, no gloss |
-| `grid-required` | a markdown table only when the host cannot render this component |
-| `rich-rung-first` | the fallback applies only when the rung is unavailable; where the block sits is no reason to take it |
 | `never-replaces(<block>)` | renders in addition to that block, never in place of it |
-| `label-is-destination` | link text names what the link opens |
 | `footnote-markers` | wherever a field named in a returned footnote's `attached_to` prints — label, column head, card label, a sentence naming it — that entry's Footnote marker follows it. Never a marker without its entry |
 | `footnotes-verbatim` | every returned entry prints, in arrival order, `text` as it arrived: never shortened, reworded, merged or dropped |
 
@@ -162,8 +159,9 @@ missing from:
 
 ## Links
 
-- Rich: descriptive link text, Link colour, underline, weight 500, trailing ` ↗`. Markdown
-  fallback: a standard link, descriptive text.
+- Link text names what the link opens. Rich: Link colour, underline, weight 500, trailing
+  ` ↗`. Markdown fallback: a standard link.
+- A citation is one line, and the whole line is the link.
 - Never print a raw URL as visible text unless links do not render.
 - Never build a product, methodology or workflow link by pattern. Returned or approved
   links only.

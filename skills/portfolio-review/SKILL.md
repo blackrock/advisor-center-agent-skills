@@ -11,7 +11,7 @@ Organizes one pass of Advisor Center 360° analytics over a single portfolio, ho
 
 ## Context
 
-The returned payload is platform analytics: allocation and risk figures, modelled stress impacts, fired opportunity rules, fund-health verdicts with their drivers, Funds to Explore ideas, the fund company's published capital gains distribution estimates, and the links Advisor Center carries for each. Stress impacts are modelled outcomes under a named historical or hypothetical condition, never forecasts, probabilities or likelihoods. An upstream comment, verdict or alternative arrives unvetted against this client's constraints, mandate or tax position.
+The returned payload is platform analytics: allocation and risk figures, modelled stress impacts, fired opportunity rules, fund-health verdicts with their drivers, Funds to Explore ideas, capital gains distribution estimates, and the links Advisor Center carries for each. Stress impacts are modelled outcomes under a named historical or hypothetical condition, never forecasts, probabilities or likelihoods. A returned comment, verdict or alternative arrives unvetted against this client's constraints, mandate or tax position.
 
 The generated output is not a BlackRock-authored conclusion. Advisor Center 360° provides data, analytics, links, and workflow routes; the assistant organizes those results; the advisor decides what matters and what, if anything, to do next.
 
@@ -22,8 +22,7 @@ Render the header and the four numbered sections inline in the conversation as e
 - **Every mark takes a categorical slot. Nothing in this review is coloured by the sign of its number.** Share-bar segments, paired bars and scenario columns all read their colour from `## Categorical — identity`: a lone series on slot 1, and when the advisor named a benchmark or model, the reference on slot 1 and the subject on slot 2. A scenario chart whose every impact is negative is still slot 1. `## Change direction` colours text and backgrounds only — it has no mark colour to give, so never take a bar, column or segment colour from it.
 - Asset classes, accounts and regions are categorical identities — never carry a status icon or status word on a slice, whatever its hue. Status roles colour the fund, opportunity and capital gains cards, the status lists and the cut-off timeline, and nothing else.
 - A fired fund-health driver takes the attention glyph `⚑`; a fund judged with no driver fired takes `✓`; an `unavailable` verdict takes `—`.
-- **In every status map, the `Glyph` takes its row's `Role` `Icon` colour, and the `Words` take its `Text` colour**, both from `references/design-tokens.md` § Status — state. A glyph in an ink colour is the wrong glyph.
-- When a field is not returned: omit the tile, row, segment or column — never a blank, a dash or a zero-length mark — and name the omission in the section's footnote or a bullet. *Not returned* ≠ *returned as zero or none*; never infer an unreturned value. A positives-only response cannot support a claim about what was checked and passed. Two verdicts that disagree in one visual are information, not an error — never reconcile them.
+- *Not returned* ≠ *returned as zero or none*; never infer an unreturned value. A positives-only response cannot support a claim about what was checked and passed. Two verdicts that disagree in one visual are information, not an error — never reconcile them.
 
 **Sequence — call, write, then call.** Each section is written in full — heading, marks, lead, bullets, citations, all inside one visual — before the next tool call is issued. Writing it means emitting that visual, not leaving prose in the chat beside it. Never batch the calls and write afterwards.
 
@@ -77,12 +76,12 @@ Anything not specified here or in the step that emits it is not rendered. Never 
 
 - **A section is one visual. Its heading and its prose go inside that visual.** Emit the heading, the marks, the bold lead, the bullets and the citations as one inline visualization, in that order. Chat text written between two tool calls is folded into the collapsed tool-use step and the advisor never sees it — so a lead or a citation left outside the visual is a lead or a citation that did not reach them. Only text after the review's final call is reliably visible, and that is the closing, not a section.
 - **Call, then build, then emit.** The tool result returns first; then the whole section is assembled and emitted once. Nothing about a section is written before its own call.
-- The **bold lead** is one sentence, at most 20 words, the verdict — then plain-weight bullets as the step specifies. No other paragraphs, except the closest-model template in the closing.
-- The section's citations are its **last lines inside the visual**, one per link, exact form: `Open in Advisor Center here.` then `Fund health methodology here.` when present, each with `here` as a table link to its URL. Section 4 cites `Open full tax analysis in Advisor Center here.` then `See methodology for iShares ideas here.` when present. Those four are the only citation strings in this review, and a section gets at most one of each — never a second Advisor Center link, never `Methodology here.` unqualified. Never print a URL as visible text; the words carry the link. Where links do not render at all, print the URL in full after the words. A link inside a visual still works: the host opens it through its own confirmation.
+- The **bold lead** is one sentence, the verdict — then plain-weight bullets as the step specifies. No other paragraphs, except the closest-model template in the closing.
+- The section's citations are its **last lines inside the visual**, one per link, exact form: `Open in Advisor Center` then `Fund health methodology` when present. Section 4 cites `Open full tax analysis in Advisor Center` then `See methodology for ideas` when present. Those four are the only citation strings in this review, and a section gets at most one of each — never a second Advisor Center link, never `Methodology` unqualified. Never print a URL as visible text; the words carry the link. Where links do not render at all, print the URL in full after the words. A link inside a visual still works: the host opens it through its own confirmation.
 - Add after the comparison link, once per review, in section 1: `That view renders live under its own analysis date and fee settings, so its figures can differ from these.`
-- The only other links anywhere are a rule's own `recommendation_link` on its opportunity card, an idea's own `product_url` in the fund card's Funds to Explore block or the capital gains card's iShares Ideas block, and the closest model's `comparison_url` in the closing.
-- Link labels must name the actual destination. A methodology URL is always labeled as methodology, never as a fund-details tab, fund-detail route, or chat drilldown. For red or flagged fund-health opportunities, the first path is reviewing the flagged funds in chat; methodology and source links are secondary.
-- The figures are the platform's. The reading is yours. The decision is the advisor's. Attribute an upstream comment, verdict or alternative **to upstream**, in its own words, and say it is unvetted against the advisor's constraints. Never credit the data provider with a conclusion it did not draw.
+- The only other links anywhere are a rule's own `recommendation_link` on its opportunity card, an idea's own `product_url` in the idea blocks of a fund card or a capital gains card, and the closest model's `comparison_url` in the closing.
+- Link labels must name the actual destination. A methodology URL is always labeled as methodology, never as a fund-details tab, fund-detail route, or chat drilldown. When a fund-health signal has any fund needing review or immediate attention, the first path is reviewing the flagged funds in chat; methodology and source links are secondary.
+- The figures are the platform's. The reading is yours. The decision is the advisor's. Give a returned comment, verdict or alternative in its own words, and say it is unvetted against the advisor's constraints.
 
 ### Links this domain carries
 
@@ -199,8 +198,8 @@ Renders, in this order: **header · `### 1. Portfolio snapshot` · stat tiles** 
 
 | Slot | Source | Absent |
 |---|---|---|
-| saved portfolio | `Total value` ← subject-record currency · `Holdings` ← integer · `Total risk` ← `total_risk` · `Top 5` ← `top_five_weight`, dated by the stored record rather than by the analysis | omit the tile, and name it in the coverage bullet |
-| household | `Total value` · `Accounts` ← integer · `Holdings` · `Total risk` | omit the tile, and name it in the coverage bullet |
+| saved portfolio | `Total value` ← subject-record currency · `Holdings` ← integer · `Total risk` ← `total_risk` · `Top 5` ← `top_five_weight`, dated by the stored record rather than by the analysis | omit |
+| household | `Total value` · `Accounts` ← integer · `Holdings` · `Total risk` | omit |
 | model | `Total risk` | no block |
 | benchmark row · a second row, benchmark only | `Benchmark` ← the name as listed · `Equity split` ← the subject's equity slice figure, `sub` ← `vs <benchmark equity> <benchmark name>`, each from its own `analyze_portfolio` response | no second row |
 
@@ -237,8 +236,6 @@ Renders, in this order: **header · `### 1. Portfolio snapshot` · stat tiles** 
 #### Prose
 
 Bold lead, then bullets in this order: allocation · equity geography · total risk against the benchmark — each only when its block rendered — then coverage, naming by label every tile and bar this response did not carry. An absent figure is named, never explained: `top_five_weight` alone is absent for three different reasons and the response says which for none of them. Then citations. No other paragraph — in particular, nothing about the closest model.
-
-The coverage bullet is where `omit-and-name` lands in this section: a tile dropped with nothing said reads as a portfolio with no concentration, rather than a figure the response never carried.
 
 **Write section 1 now**, before calling `analyze_scenarios`. All of it is on screen before that call: the header and its line 2 · `### 1. Portfolio snapshot` · every tile and bar this subject carries · the bold lead · the bullets · the citations.
 
@@ -316,7 +313,7 @@ Renders, in this order: **`### 3. Opportunities, fund health, Funds to Explore` 
 | Encode | `fill` ← the returned severity for a flagged signal, default Warning; Good for a clear check |
 | Exclude | `value` · `threshold_low` · `threshold_high` · `breach_threshold` — the comment carries the figure, commentary cites it |
 | Empty | `signals` empty: no cards, and the lead says so |
-| Rules | `grid-required` · `label-is-destination` · `verbatim(recommendation_link)` |
+| Rules | `verbatim(recommendation_link)` |
 | Fallback | `Status` \| `Opportunity` \| `Portfolio observation` \| `Available path` |
 
 | Slot | Source | Absent |
@@ -353,8 +350,8 @@ Renders, in this order: **`### 3. Opportunities, fund health, Funds to Explore` 
 | Encode | `fill` ← the returned status |
 | Variant | compact · `on_track` only, twenty or more holdings · keeps `header.left`, `header.right`, `meta` (category, weight), `explore` |
 | Empty | `funds` empty: no grid, and the footnote names the coverage gap |
-| Rules | `grid-required` · `omit-and-name` · `required-when-present(meta)` · `required-when-present(explore)` · `label-only(flags)` |
-| Fallback | `Fund` \| `Name` \| `Status` \| `Meta` \| `Drivers fired` \| `Funds to Explore` |
+| Rules | `omit-and-name` · `required-when-present(meta)` · `required-when-present(explore)` · `label-only(flags)` · `verbatim(ideas[].label)` |
+| Fallback | `Fund` \| `Name` \| `Status` \| `Meta` \| `Drivers fired` \| `Ideas` |
 
 Five slots — `header`, `name`, `meta`, `flags`, `explore` — in this order, none merged:
 
@@ -365,7 +362,7 @@ Five slots — `header`, `name`, `meta`, `flags`, `explore` — in this order, n
 | `name` | `description` | omit, and omit when already `header.left` |
 | `meta` | `<category> · <weight as returned> · <expense ratio>bps · <yield> yield`; the expense ratio is the one arrived figure this review converts, percent to integer basis points | omit the absent part |
 | `flags` | one row per fired driver: `⚑` in the `Icon` colour of the driver's `severity` role, then the driver's own label | judged: Good tag `✓ No drivers flagged` · `unavailable`: Neutral tag `— No verdict returned` |
-| `explore` | Inset block `Funds to Explore`: one line per idea, `value` → `product_url` | the one line `No Funds to Explore returned` |
+| `explore` | one Inset block per distinct `ideas[].label`, in arrival order: block label ← that `label` · one line per idea carrying it, `value` → `product_url` | the one line `No ideas returned` |
 
 | `status` | Role | Glyph | Words |
 |---|---|---|---|
@@ -392,16 +389,16 @@ Point form, after the cards. Signals and fund-level drivers already sit in the v
 
 ### Step 4: Capital gains · `get_capital_gains_and_tax_analysis`
 
-The tool takes `subjects: [{type, id}]` — the same subject as steps 1 to 3, as a one-entry list. Pass `analysis_date` only when the advisor named a date, written `YYYY-MM-DD`.
+The tool takes `subjects: [{type, id}]` — the same subject as steps 1 to 3, as a one-entry list.
 
 Once the call returns, and before the first tile, write `### 4. Capital gains` — that exact wording.
 
 Renders, in this order: **`### 4. Capital gains` · stat tiles** (no label) **· `Estimate status` list · `Distribution cut-offs` timeline · cut-off table · assumptions disclaimer · fund cards · ideas disclaimer · bold lead · bullets · footnotes · citations** — all of it inside one visual. Each part is specified below.
 
 - **Every figure is named by the response.** A named figure arrives as `{label, value}`: `<field>` below is its `value`, and `<field>.label` the words for it, printed as they arrived. Where the lead or a bullet explains a figure, use its `<field>.definition` as it arrived; a figure with none is named by its label, never explained in your own words. A status group names itself `status_label` and its count `fund_count_label` the same way.
-- Every estimate is the fund company's published estimate. It carries no cost basis and no client rate, so a tax cost is what the distribution costs a holder of that position, never this client's realised gain, and it reads the same in a tax-deferred account.
-- `not_tracked` means no estimate is being followed, never that the fund will not distribute; `not_expected` is the only status carrying the provider's answer of no distribution.
-- **Off season** — `totals.tracked_count` at zero: the section renders `### 4. Capital gains` · its bold lead from the lead table in § Capital gains prose · the footnotes · the citations, and nothing else. A call that fails renders the heading and the gap statement.
+- Every estimate is subject to change. It carries no cost basis and no client rate, so a tax cost is what the distribution costs a holder of that position, never this client's realised gain, and it reads the same in a tax-deferred account.
+- `not_tracked` means no estimate is being followed, never that the fund will not distribute; `not_expected` is the only status reporting no expected distribution.
+- **Off season** — `totals.tracked_count` at zero: the section renders its heading · its bold lead from the lead table · the footnotes · the citations, and nothing else. A call that fails renders the heading and the gap statement.
 
 The status map, read by the status list rows and the fund-card status tags:
 
@@ -429,10 +426,10 @@ The status map, read by the status list rows and the fund-card status tags:
 
 | Slot | Source | Absent |
 |---|---|---|
-| `fund_count_label` | the group's `fund_count`, then ` of `, then `totals.fund_count` | `totals.fund_count` absent: the count alone · the group's `fund_count` absent: omit the tile, and name it in the coverage bullet |
-| `high_estimate_fund_count.label` | the group's `high_estimate_fund_count`, in Critical text above zero and primary ink at zero | omit the tile, and name it in the coverage bullet |
-| `position_tax_cost_total.label` | the group's `position_tax_cost_total`; `sub` ← `Tax cost` | omit the tile, and name it in the coverage bullet |
-| `Nearest cut-off` | the group's first fund, its `days_until_sell_by`, as `<n> days` | omit the tile, and name it in the coverage bullet |
+| `fund_count_label` | the group's `fund_count`, then ` of `, then `totals.fund_count` | `totals.fund_count` absent: the count alone · the group's `fund_count` absent: omit |
+| `high_estimate_fund_count.label` | the group's `high_estimate_fund_count`, in Critical text above zero and primary ink at zero | omit |
+| `position_tax_cost_total.label` | the group's `position_tax_cost_total`; `sub` ← `Tax cost` | omit |
+| `Nearest cut-off` | the group's first fund, its `days_until_sell_by`, as `<n> days` | omit |
 
 No `upcoming` group: no tiles, and the lead reports the status groups that did arrive.
 
@@ -468,12 +465,12 @@ No `upcoming` group: no tiles, and the lead reports the status groups that did a
 | Guides | ticks: `today`, `30 days`, `60 days`, `90 days` |
 | Limit | a fund past `90 days` sits at the right end |
 | Empty | no `upcoming` funds: no timeline |
-| Rules | `never-replaces(cut-off table)` · `grid-required` · `omit-and-name` |
+| Rules | `never-replaces(cut-off table)` · `omit-and-name` |
 | Fallback | one row per fund, no axis |
 
 | Slot | Source | Absent |
 |---|---|---|
-| `dot` | one per fund at its `days_until_sell_by` | a fund with no `days_until_sell_by` gets no dot, and the coverage bullet names it |
+| `dot` | one per fund at its `days_until_sell_by` | omit |
 | `label` | `ticker` | `name`, else no label |
 
 #### Cut-off table
@@ -494,9 +491,11 @@ The timeline's label covers it; the table carries no label of its own.
 |---|---|---|
 | `Fund` | `ticker`, weight 500 | `name`, else `Unidentified holding` |
 | `days_until_sell_by.label` | `<days_until_sell_by> days` in primary ink · `sell_by_date` as day and month in words, secondary ink, never wrapping | omit the absent part |
-| `position_value.label` | `position_value` | omit, and name it in the coverage bullet |
-| `total_estimate.label` | `total_estimate`, in Critical text on `high_estimate` | omit, and name it in the coverage bullet |
+| `position_value.label` | `position_value` | omit |
+| `total_estimate.label` | `total_estimate`, in Critical text on `high_estimate` | omit |
 | `position_tax_cost.label` | `tax_cost_pct` in secondary ink · `position_tax_cost` in primary ink | omit the absent part |
+
+A fund's distribution in dollars is returned by nothing. `totals.estimated_distribution_total` is the one distribution amount that arrives, it is gross over every fund carrying an estimate including those already distributed, and it is never read as a saving or as any one fund's figure.
 
 #### Assumptions disclaimer
 
@@ -517,10 +516,10 @@ The timeline's label covers it; the table carries no label of its own.
 | Data | the `upcoming` group's `funds` |
 | Order | response order |
 | Encode | `fill` ← Critical on `high_estimate`, else Warning |
-| Exclude | `short_term_estimate` · `long_term_estimate` · `cusip` · `by_subject` · `tracked` · `ideas[].label` · `ideas[].fund_name` · `ideas[].expense_ratio` |
+| Exclude | `short_term_estimate` · `long_term_estimate` · `cusip` · `by_subject` · `tracked` · `ideas[].fund_name` · `ideas[].expense_ratio` |
 | Empty | no `upcoming` funds: no cards, and the lead says so |
-| Rules | `grid-required` · `omit-and-name` · `required-when-present(explore)` · `label-is-destination` · `verbatim(product_url)` · `verbatim(label)` · `footnote-markers` |
-| Fallback | `Fund` \| `Name` \| `Status` \| `position_tax_cost.label` \| `total_estimate.label` \| `iShares Ideas` |
+| Rules | `omit-and-name` · `required-when-present(explore)` · `verbatim(product_url)` · `verbatim(label)` · `verbatim(ideas[].label)` · `footnote-markers` |
+| Fallback | `Fund` \| `Name` \| `Status` \| `position_tax_cost.label` \| `total_estimate.label` \| `Ideas` |
 
 Five slots — `header.left`, `header.right`, `name`, `tax cost`, `explore` — in this order, none merged:
 
@@ -529,8 +528,8 @@ Five slots — `header.left`, `header.right`, `name`, `tax cost`, `explore` — 
 | `header.left` | `ticker`, weight 500 · Pill `recently_posted.label` on `recently_posted` true | `name`, else `Unidentified holding` |
 | `header.right` | Status tag ← the `upcoming` row of the status map above | — |
 | `name` | `name` | omit, and omit when already `header.left` |
-| `tax cost` | Inset block `position_tax_cost.label`: `position_tax_cost`, then the line `from a capital gains distribution of <total_estimate> of NAV`, that figure in Critical text on `high_estimate` | omit the absent part; both absent: omit the block and name it in the coverage bullet |
-| `explore` | Inset block `iShares Ideas`: each idea's `value` as a table link to `product_url`, one wrapping row, `12px` apart | the one line `No iShares Ideas returned` |
+| `tax cost` | Inset block `position_tax_cost.label`: `position_tax_cost`, then the line `from a capital gains distribution of <total_estimate> of NAV`, that figure in Critical text on `high_estimate` | omit the absent part; both absent: omit the block |
+| `explore` | one Inset block per distinct `ideas[].label`, in arrival order: block label ← that `label` · one line per idea carrying it, `value` → `product_url` | the one line `No ideas returned` |
 
 #### Ideas disclaimer
 
@@ -552,7 +551,7 @@ The bold lead is the row its case matches, filled. `<analysis date>` is `analysi
 
 | Case | Lead |
 |---|---|
-| `totals.tracked_count` at zero | `**No capital gains distribution estimates are published as of <analysis date>.**` |
+| `totals.tracked_count` at zero | `**No capital gains distribution estimates are available as of <analysis date>.**` |
 | no `upcoming` group | `**No fund has an upcoming capital gains distribution as of <analysis date>.**` |
 | an `upcoming` group | `**<fund_count> of <totals.fund_count> funds have an upcoming capital gains distribution, with a <position_tax_cost_total.label><marker> of <position_tax_cost_total>.**` |
 
@@ -590,7 +589,7 @@ Renders whenever `footnotes` arrived, the off-season section included.
 
 ### Step 5: Closing
 
-Renders, in this order: **caveats · closest-model side-by-side card with its action button** (only when step 1 carried one) **· the most material finding · follow-ups.** The closing follows the review's last tool call, so it is the one region whose chat text is reliably visible — its prose does not need a visual to survive. Each part is specified below.
+Renders, in this order: **caveats · closest-model side-by-side card with its action button** (only when step 1 carried one) **· the most material finding · follow-ups · disclaimer.** The closing follows the review's last tool call, so it is the one region whose chat text is reliably visible — its prose does not need a visual to survive. Each part is specified below.
 
 
 Report/PDF handoff is reactive only. Do not proactively mention report generation, PDFs, or Generate Report in the closing. If the advisor asks for a report or PDF, route through `ac360-capability-router`.
@@ -600,7 +599,7 @@ Report/PDF handoff is reactive only. Do not proactively mention report generatio
 | Key | Value |
 |---|---|
 | Component | Footnote · one line per caveat that applied |
-| Slots | inferred column mapping · resolved identifier · placeholder investment amount · equity-sleeve scope · benchmark assumed · unrecognised holdings left out of the capital gains analysis · `Estimates read as of <analysis date>, the date you named.` when the advisor named an `analysis_date` |
+| Slots | inferred column mapping · resolved identifier · placeholder investment amount · equity-sleeve scope · benchmark assumed · unrecognised holdings left out of the capital gains analysis |
 | Empty | none applied: no block |
 | Fallback | the same lines as plain text |
 
@@ -611,7 +610,7 @@ Report/PDF handoff is reactive only. Do not proactively mention report generatio
 | Component | Side-by-side card · only when step 1 carried a `closest_model` |
 | Data | the held `list_models` row · the held equity and fixed-income slice figures |
 | Empty | no `closest_model`: no block |
-| Rules | `rich-rung-first` · `omit-and-name` · `no-substitute(closest model)` · `from-field-only(card.rows, the list_models row)` · `case-fold(ETF, MF, SMA)` · `verbatim(prose)` |
+| Rules | `omit-and-name` · `no-substitute(closest model)` · `from-field-only(card.rows, the list_models row)` · `case-fold(ETF, MF, SMA)` · `verbatim(prose)` |
 | Fallback | the card as a two-column table — `Closest fit` \| `<name>`, then one row per `card.rows` line — with `prose` and the `action` label as plain text beneath |
 
 Both halves required: a card alone, or a card whose rows absorb the prose, is not this block.
@@ -623,7 +622,7 @@ Both halves required: a card alone, or a card whose rows absorb the prose, is no
 | `card.rows` | `Model split` ← `<short_name>` · `Risk profile` ← `<risk_profile>` · `Objective` ← `<objective>` · `Vehicles` ← `<family_vehicle>` · `Rebalance` ← `<family_trade_frequency>`; label on one line, value wrapping flush right | omit the row |
 | `prose` | the template below, filled | — |
 | `action` | Action button `Run side-by-side comparison in this chat.` | — |
-| `source link` | `Open comparison in Advisor Center here.`, `here` → `closest_model.comparison_url` | omit |
+| `source link` | `Open comparison in Advisor Center` → `closest_model.comparison_url` | omit |
 
 Template, filled and printed exactly:
 
@@ -635,9 +634,20 @@ One sentence naming the most material finding of the whole review, drawn from wh
 
 #### Follow-ups
 
-Three to five, each one a tool this domain actually carries and each earned by something this review found: a model or benchmark comparison when a closest model was named, the full tax analysis when section 4 found an upcoming distribution, deeper risk, ESG or carbon, simulated performance, wealth projection, style factors, the full scenario set, or scenario contributors. Never offer one the findings do not motivate. End with `Say which of those you want and I'll run it on this portfolio.`
+Up to five, each one a tool this domain actually carries and each earned by something this review found: a model or benchmark comparison when a closest model was named, the full tax analysis when section 4 found an upcoming distribution, deeper risk, ESG or carbon, simulated performance, wealth projection, style factors, the full scenario set, or scenario contributors. Offer only what the findings motivate. End with `Say which of those you want and I'll run it on this portfolio.` None earned: no follow-ups and no closing line.
 
-**Write the closing now**, in that order; nothing follows it. On screen when it is done: the caveats that applied · the closest-model card with both its prose and its button when step 1 carried one · the most material finding · the follow-ups, ending with the closing line.
+#### Disclaimer
+
+| Key | Value |
+|---|---|
+| Component | Footnote · the closing's last line |
+| Data | `disclaimer` |
+| Slots | `disclaimer`, printed as it arrived, from the first response carrying one |
+| Empty | no response carried `disclaimer`: no line |
+| Rules | `verbatim(disclaimer)` · `once-per-response(disclaimer)` |
+| Fallback | the same line as plain text |
+
+**Write the closing now**, in that order; nothing follows it. On screen when it is done: the caveats that applied · the closest-model card with both its prose and its button when step 1 carried one · the most material finding · the follow-ups, ending with the closing line · the disclaimer.
 
 ## Source and link discipline
 
@@ -647,7 +657,7 @@ Do not cite BlackRock as the source of advisor or assistant-generated review poi
 
 If a status, metric, link, methodology detail, or workflow route is not returned or listed as approved, label it unavailable.
 
-**Links are part of the output.** When a returned Advisor Center, comparison, methodology, fund or product link supports a rendered block, surface it near that block. If section 1 returns `comparison_url`, the review must contain at least one `Open in Advisor Center here.` link. Do not finish a review with no links if any returned link exists. Never paraphrase a link away, and never build a product, methodology or workflow link by pattern.
+**Links are part of the output.** When a returned Advisor Center, comparison, methodology, fund or product link supports a rendered block, surface it near that block. If section 1 returns `comparison_url`, the review must contain at least one `Open in Advisor Center` link. Do not finish a review with no links if any returned link exists. Never paraphrase a link away, and never build a product, methodology or workflow link by pattern.
 
 **Read-only by default.** `create_portfolio`, `update_portfolio`, `clone_portfolio`, the household writes and `update_advisory_fee` write real data. Ask first, every time, and say what will be written.
 
@@ -658,7 +668,7 @@ If a status, metric, link, methodology detail, or workflow route is not returned
 - Neutral and non-directive: report what the data shows; do not recommend an action.
 - Name a missing value unavailable. Never fill a gap from memory, and never soften it with hedging.
 - Say each thing once. Do not restate in prose what a visual already carries.
-- No tool names, field names, ids, or missing-reference commentary in anything the advisor reads. Never describe the rendering mechanism or a fallback.
+- No tool names, field names, ids, or missing-reference commentary in anything you write. Name a figure by its returned label, else the words this skill gives it, and stop there: no internal feature name, and nothing on how a figure or flag is sourced or worked out. Never describe the rendering mechanism or a fallback. Returned wording — footnotes, disclaimers, labels, status words — prints as it arrived, under its block's rules.
 
 ## Guardrail
 
