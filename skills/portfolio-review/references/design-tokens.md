@@ -1,34 +1,8 @@
 # Design tokens
 
-The primitives every visual is built from: mechanism, colour, type, geometry, number
-formats. Values and roles only — what each role means in a feature is decided by that
-feature's rendering spec. Never use a colour absent from these tables. Colour applies
-at rung 1 only.
-
-## Mechanism
-
-The spec says what to draw, never what to draw it with. Render **inline in the
-conversation** using the richest form the host displays there:
-
-1. **The host's own inline visualization capability** — a chart, component or artifact
-   that renders in the conversation itself. Full palette and geometry apply.
-2. **Fallback when rich cards/charts are unavailable: markdown tables**. Always works, no colour; labels and printed values
-   carry every encoding.
-
-Capability selection is mandatory. Before writing any markdown table fallback, decide
-whether the current host can render an inline visual mark for this block. Use rung 1
-when the host exposes any inline card, chart, component, or visualization channel. Use
-markdown tables only when no inline visual channel exists, the inline render fails, or
-the host explicitly cannot display that block's richer mark. Do not choose markdown
-tables for speed, familiarity, or because the fallback example is easier to copy.
-
-Excluded, because they have failed:
-
-- **Raw HTML or SVG in the chat body** — escaped and shown as tags.
-- **Box-drawing or bar art inside a code block** — the block is narrow and wraps.
-- **Anything that opens outside the conversation** — a side panel, a file, a download.
-
-Never describe the mechanism or a fallback to the reader.
+Values and roles only: colour, type, number formats. How to render is `components.md`. A
+skill binds these roles to its domain in its own `SKILL.md`. Never use a colour absent
+from these tables.
 
 ## Typeface
 
@@ -36,31 +10,43 @@ Inherit the host's. Never set `font-family`, never ship or link a font.
 
 ## Ink, surface and chrome
 
-| Role | Value |
-|---|---|
-| Primary text | `#000` |
-| Secondary text | `#757575` |
-| Disabled text | `#9e9e9e` |
-| Surface | `#fff` |
-| Page background | `#fafafa` |
-| Card border | `#bdbdbd` |
-| Divider, gridline, track, tooltip stroke | `#e0e0e0` |
-| Axis line and ticks | `#757575` |
-| Axis labels | `#000` |
-| Plot band | `#000` at 5% opacity |
-| Accent | `#ff4713` |
-| Link | `#cb2600` |
+**Inherit every role below from the host, the way the typeface is inherited.** The host
+knows whether it is drawing light or dark, and a hard-coded light value goes unreadable
+the moment it is not.
 
-Text always wears an ink token, never a series colour. Grid and axis are recessive; do
-not strengthen them.
+**A fixed fill brings its own ink.** The brand hues are printed in either mode, so a
+status card wash, a solid status fill, a subtle background and a pill are light whatever
+the host is drawing. Text and dividers inside one take the fixed column — inherit there
+and the host's dark-mode white lands on a light wash, which is how a card goes blank. A
+status glyph takes no value from this table: its colour is its role's `Icon`.
 
-**Accent is interactive emphasis only** — an active legend item, a selected state —
-never a data series. Series always take categorical slots.
+| Role | Take from the host | Inside a fixed fill |
+|---|---|---|
+| Primary text, axis labels | its body text colour | `#000` |
+| Secondary text, axis line and ticks | its muted text colour | `#757575` |
+| Disabled text | its disabled text colour | `#9e9e9e` |
+| Divider, gridline, track, tooltip stroke | its divider colour | `#e0e0e0` |
+| Surface | its card or panel background | the fill itself |
+| Page background | its page background | — |
+| Card border | its border colour | the role's subtle border |
+| Plot band | its body text colour at 5% opacity | — |
+
+**Accent `#ff4713`** and **Link `#cb2600`**, and every value in the three tables below,
+are brand identity: printed as given in either mode. Accent is interactive emphasis only
+— an active legend item, a selected state — never a data series, which always takes a
+categorical slot.
+
+Text always wears an ink token, never a series colour. Grid and axis are recessive.
 
 ## Categorical — identity
 
 Thirteen slots, fixed order, assigned from 1, never cycled. Colour follows the entity,
-never its rank. A feature that caps its categories folds the remainder into Other.
+never its rank, and a capped list folds its remainder into Other. Every slot carries a
+direct label on the mark or its legend entry; slots 2, 3 and 5 share hues with the status
+roles, so a categorical mark never carries a status icon or status words.
+
+**Comparison series** take slots in source order: the reference on slot 1, the subject on
+slot 2. A lone series takes slot 1.
 
 | Slot | Value | | Slot | Value |
 |---|---|---|---|---|
@@ -72,89 +58,63 @@ never its rank. A feature that caps its categories folds the remainder into Othe
 | 6 | `#6556ff` | | 13 | `#693aa0` |
 | 7 | `#e74065` | | Other | `#616161` |
 
-Every slot carries a direct label on the mark or its legend entry. Slots 2, 3 and 5
-share hues with the status roles, so a categorical mark must never carry a status icon
-or status words — the label is what says it is a category.
-
-**Comparison series** take slots in the order the source app lists them: the reference
-(benchmark or model) first on slot 1, the subject second on slot 2. A lone series takes
-slot 1.
-
 ## Status — state
 
-Always an icon **and** words; never colour alone.
+Always an icon **and** words; never colour alone. Words on a solid status fill take `#fff`,
+except Warning's `#000`; elsewhere the role's `Text` and `Icon` below. Neutral means no
+state was determined: not a fifth severity, never Good.
 
-| Role | Fill | Text and icon | Subtle background | Card wash | Subtle border |
-|---|---|---|---|---|---|
-| Good | `#008b5c` | `#008b5c` | `#e5f5ed` | `#f2faf6` | `#008b5c` |
-| Warning | `#ffce00` | `#000` on fill, `#ffc300` icon | `#ffedb0` | `#fff6d7` | `#ffce00` |
-| Critical | `#cc0018` | `#d91120` | `#ffeaed` | `#fff4f6` | `#d91120` |
-| Informational | `#007ac9` | `#007ac9` | `#efe9f5` | `#f7f4fa` | `#8f63bc` |
-| Neutral / unknown | `#616161` | `#313131` | `#e0e0e0` | `#f0f0f0` | `#e0e0e0` |
+**Glyphs**: state `●` · attention `⚑` · pass `✓` · not assessed `—`. A status naming a
+state takes `●`; the other three report a verdict, so they belong to the slot carrying
+one. **The block declares which glyph its status takes**, in the table mapping the status.
 
-- Ink on a solid fill: `#fff`, except Warning which takes `#000`.
-- A **status dot** is a filled circle in the role's fill, always followed by the words.
-- A **status card** takes the role's card wash across the whole card and its subtle
-   border at `1px`. The dot and words still appear in the header; the wash never
-   replaces them.
-- Neutral means no state was determined: not a fifth severity, never Good.
+**These five hues carry the verdict**, so they hold in either host mode and never adapt to
+one. A card wash darkened to suit a dark host is a different verdict.
 
-## Financial direction
+| Role | Fill | Text | Icon | Subtle background | Card wash | Subtle border |
+|---|---|---|---|---|---|---|
+| Good | `#008b5c` | `#008b5c` | `#008b5c` | `#e5f5ed` | `#f2faf6` | `#008b5c` |
+| Warning | `#ffce00` | `#000` | `#ffc300` | `#ffedb0` | `#fff6d7` | `#ffce00` |
+| Critical | `#cc0018` | `#d91120` | `#d91120` | `#ffeaed` | `#fff4f6` | `#d91120` |
+| Informational | `#007ac9` | `#007ac9` | `#007ac9` | `#efe9f5` | `#f7f4fa` | `#8f63bc` |
+| Neutral / unknown | `#616161` | `#313131` | `#313131` | `#e0e0e0` | `#f0f0f0` | `#e0e0e0` |
+
+**A status glyph takes `Icon` whatever it sits on**, so § Ink's fixed-fill column never
+reaches one.
+
+## Change direction
 
 | Role | Text | Background | Series |
 |---|---|---|---|
-| Gain / increase | `#008b5c` | `#e5f5ed` | `#00a6f4` |
-| Loss / decrease | `#d91120` | `#ffeaed` | `#f92f24` |
+| Positive | `#008b5c` | `#e5f5ed` | `#00a6f4` |
+| Negative | `#d91120` | `#ffeaed` | `#f92f24` |
 
-## Geometry
-
-| Element | Rung 1 | Rung 2 (markdown fallback) |
-|---|---|---|
-| Bar | height `20px`, radius `4px` | `█` cells, **20 cells = the scale maximum**, minimum one cell for a non-zero value |
-| Gap between stacked segments | `2px` surface colour | — |
-| Track behind a paired bar | full width, gridline colour, same radius | `░` to 20 cells |
-| Stat tile | card on page background, radius `8px`, padding `16px`; label `13px` secondary ink above, figure `24px` weight 600; tiles in one row, `12px` apart | a two-row table: labels, then figures |
-| Column | width to fit, radius `4px` at the free end, `2px` gap within a pair, `24px` between groups; value label `12px` primary ink at the free end | one table row per category |
-| Block label | `13px` secondary ink, sentence case, above the mark | bold line above the table |
-| Legend | inline under the mark: `■` in the series colour, label in ink | the table's own column heads |
-| Status dot | `10px` circle in the role's fill, `6px` before the words | `●` before the words |
-| Status tag | `12px`, radius `4px`, `4px 8px` padding, role subtle background and border, role text; always icon plus words | words prefixed with `●` |
-| Table link | link colour, weight 600, underlined, trailing ` ↗`, wraps freely | a markdown link |
-| Table | header row weight 600 with a `1px` card-border rule beneath; rows parted by `1px` divider; `8px` cell padding; no fills | a markdown table |
-| Card | `1px` card-border, radius `8px`, `12px` padding, surface fill, three across unless the feature spec names another column count | one row of a table |
-| Side-by-side card | card `220px` fixed on the left, prose filling the rest, `24px` apart, both top-aligned; card `1px` card-border, radius `8px`, `16px` padding, surface fill | a table, then the prose beneath it |
-| Pill | `12px`, radius `4px`, `4px 12px` padding, Informational subtle background and border, Informational text | bold words on their own line |
-| Footnote | `12px` secondary ink | italic line under the table |
-| Icons | finding `⚑` · clear `✓` · no verdict `—` | same |
-| Action button | accent fill, `#fff` ink, radius `4px`, `8px 16px` padding, weight 600, `13px`; the label is the exact string given, and a click sends that string into the conversation as the advisor's next message | a plain line of text, no button |
-| Input form | the host's input or elicitation channel: one question per open field, options where the accepted values are bounded, a typed answer where they are not | a prose list of the open fields, one per line |
-
-Scale: shares of a whole 100% · paired bars the larger rounded up to the next 5% ·
-columns span the data's minimum and maximum, each rounded outward to the next 5% (or
-`$50K`) step, gridlines at every step, the zero line drawn.
-
-## Links
-
-- Rich rendering uses descriptive link text, the Link colour, underline, weight 600 and trailing ` ↗`.
-- The markdown fallback uses standard markdown links with descriptive link text.
-- Never print a raw URL as visible text unless links do not render.
-- Do not build product, methodology, or workflow links by pattern. Use returned or approved links only.
+`Series` is for a delta sparkline or a single-value change indicator only. A bar, column
+or segment takes a categorical slot whatever the sign of its values — a chart whose every
+value is negative still takes slot 1.
 
 ## Numbers
 
-**A value that arrived already formatted is printed verbatim** — never re-rounded or
-restyled, even beside a figure you formatted differently. Sizing a bar from a formatted
-figure is fine; ranking or totalling from one is not.
+**Read the arrival form first.** The first row wins whenever it applies: a figure that
+arrived formatted is never re-rounded or restyled, even beside one you formatted
+differently. Sizing a bar from a formatted figure is fine. Never rank or total from one.
+
+**Rounding is the tool's decision.** Currency arrives rounded to the cent, so re-rounding
+prints a figure that disagrees with the response.
 
 | Kind | Format |
 |---|---|
-| A rate or ratio held as a fraction | one decimal with `%` — `0.1261` → `12.6%` |
-| Currency at or above a million | nearest thousand, thousands-separated |
-| Currency below a million | nearest unit |
-| A small fee or spread | basis points, integer |
+| **A figure that arrived carrying its own `%`, currency symbol or thousands separator** | **verbatim, every place it carries.** A string is already a decision someone made |
+| A rate or ratio that arrived as a bare fraction | percent, to one decimal place, with `%` |
+| Bare currency | thousands-separated, keeping every decimal place that carries a figure and dropping a trailing zero. `2410.48` prints `$2,410.48`, `2000000.0` prints `$2,000,000` |
+| A rate difference below 1% | basis points, integer |
 | A count, rank or percentile | as-is |
-| A date shown to a reader | day, month and year in words |
+| A date shown to a reader | day, month and year in words, read from the date's own parts — never through a timezone conversion, which moves the day |
 
 - Negatives take a minus sign, never parentheses. A value rounding to zero from below
   prints as zero.
-- One precision per block. Unit named once, in the label.
+- One precision per block, among the figures whose precision you choose. A currency figure
+  keeps the places it arrived with, so two of them in one block can differ.
+- Unit named once, in the label.
+- A template never appends `%` or a currency symbol: a figure carries its own, whether it
+  arrived with one or gained one from the table. A second prints `%%`.

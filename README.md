@@ -11,9 +11,10 @@ Advisor Center Skills contains skill files for Advisor Center 360° MCP workflow
 | `guided-portfolio-builder` | Portfolio creation, import, clone, variation, and write confirmation flows. |
 | `portfolio-observations-and-opportunities` | Opportunity checks, fund-health detail, Funds to Explore, and approved drilldowns. |
 | `wealth-projections` | Modeled performance, projected wealth, methodology, fees, horizons, and unsupported configurations. |
-| `portfolio-review` | First-pass portfolio review: snapshot, scenarios, opportunities, fund health, Funds to Explore, links, and follow-ups. |
+| `portfolio-review` | First-pass portfolio review: snapshot, scenarios, opportunities, fund health, Funds to Explore, capital gains, links, and follow-ups. |
+| `tax-and-capital-gains-analysis` | Capital gains distribution exposure: estimate status, distribution cut-offs, tax cost of upcoming distributions, and iShares Ideas. |
 
-Each skill folder contains a `SKILL.md` file plus rendering and design-token references.
+Each skill folder contains a `SKILL.md` file plus design-token and rendering (or component) references.
 
 ## Rendering posture
 
